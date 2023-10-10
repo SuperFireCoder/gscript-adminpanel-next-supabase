@@ -12,7 +12,7 @@ const options: ApexOptions = {
     //     chart.windowResizeHandler();
     //   },
     // },
-    fontFamily: "Satoshi, sans-serif",
+    fontFamily: "Open Sauce Sans, sans-serif",
     type: "bar",
     height: 335,
     stacked: true,
@@ -56,7 +56,7 @@ const options: ApexOptions = {
   legend: {
     position: "top",
     horizontalAlign: "left",
-    fontFamily: "Satoshi",
+    fontFamily: "Open Sauce Sans",
     fontWeight: 500,
     fontSize: "14px",
 
