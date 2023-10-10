@@ -19,7 +19,7 @@ const options: ApexOptions = {
     //     chart.windowResizeHandler();
     //   },
     // },
-    fontFamily: "Satoshi, sans-serif",
+    fontFamily: "Open Sauce Sans, sans-serif",
     height: 335,
     type: "area",
     dropShadow: {

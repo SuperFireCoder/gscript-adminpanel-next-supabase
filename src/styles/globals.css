@@ -1,12 +1,10 @@
-@import url("https://fonts.cdnfonts.com/css/satoshi");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    /* @apply font-satoshi font-normal text-base text-body bg-whiten relative z-1; */
+    @apply font-OpenSauceSans;
   }
 }
 
@@ -168,7 +166,7 @@ span.flatpickr-weekday,
 
 .jvectormap-tip {
   background-color: #f8fafc !important;
-  font-family: Satoshi, sans-serif;
+  font-family: Open Sauce Sans, sans-serif;
 }
 
 .map-btn .jvectormap-container .jvectormap-zoomin,

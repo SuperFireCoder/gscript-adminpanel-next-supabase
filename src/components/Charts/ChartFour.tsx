@@ -33,7 +33,7 @@ const ChartFour: React.FC = () => {
   const options: ApexOptions = {
     colors: ["#3C50E0"],
     chart: {
-      fontFamily: "Satoshi, sans-serif",
+      fontFamily: "Open Sauce Sans, sans-serif",
       type: "bar",
       height: 350,
       toolbar: {

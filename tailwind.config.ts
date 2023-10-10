@@ -10,7 +10,7 @@ const config: Config = {
   darkMode: "class",
   theme: {
     fontFamily: {
-      satoshi: ["Satoshi", "sans-serif"],
+      OpenSauceSans: ["Open Sauce Sans", "sans-serif"],
     },
     colors: {
       current: "currentColor",
