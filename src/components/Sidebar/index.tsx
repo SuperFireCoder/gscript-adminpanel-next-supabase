@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import SidebarLinkGroup from "./SidebarLinkGroup";
 import Image from "next/image";
 
 interface SidebarProps {
@@ -58,7 +57,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-70 flex-col overflow-y-hidden bg-primary duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-70 flex-col overflow-y-hidden bg-primary duration-300 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -81,12 +80,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <li>
             <Link
               href="/dashboard"
-              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium text-bodydark1 bg-gray duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                pathname.includes("dashboard") && "bg-graydark dark:bg-meta-4"
+              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium duration-300 ease-in-out ${
+                pathname.includes("dashboard") || pathname === "/"
+                  ? "text-primary bg-white hover:bg-bodydark"
+                  : "text-white bg-gray hover:bg-graydark"
               }`}
             >
               <Image
-                src={"/images/dashboard.svg"}
+                src={
+                  pathname.includes("dashboard") || pathname === "/"
+                    ? "/images/dashboard-dark.svg"
+                    : "/images/dashboard.svg"
+                }
                 width={24}
                 height={24}
                 alt="Dashboard"
@@ -100,12 +105,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <li>
             <Link
               href="/user"
-              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium text-bodydark1 bg-gray duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                pathname.includes("user") && "bg-graydark dark:bg-meta-4"
+              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium duration-300 ease-in-out ${
+                pathname.includes("user")
+                  ? "text-primary bg-white hover:bg-bodydark"
+                  : "text-white bg-gray hover:bg-graydark"
               }`}
             >
               <Image
-                src={"/images/user-management.svg"}
+                src={
+                  pathname.includes("user")
+                    ? "/images/user-management-dark.svg"
+                    : "/images/user-management.svg"
+                }
                 width={24}
                 height={24}
                 alt="User Management"
@@ -119,12 +130,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <li>
             <Link
               href="/admin"
-              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium text-bodydark1 bg-gray duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                pathname.includes("admin") && "bg-graydark dark:bg-meta-4"
+              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium duration-300 ease-in-out ${
+                pathname.includes("admin")
+                  ? "text-primary bg-white hover:bg-bodydark"
+                  : "text-white bg-gray hover:bg-graydark"
               }`}
             >
               <Image
-                src={"/images/admin-management.svg"}
+                src={
+                  pathname.includes("admin")
+                    ? "/images/admin-management-dark.svg"
+                    : "/images/admin-management.svg"
+                }
                 width={24}
                 height={24}
                 alt="Admin Management"
