@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-OpenSauceSans;
+    @apply font-OpenSauceSans font-normal text-base  bg-white relative z-1;
   }
 }
 
