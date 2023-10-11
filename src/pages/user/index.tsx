@@ -1,6 +1,7 @@
 import RootLayout from "@/components/Layout/layout";
 import Image from "next/image";
 import { User } from "@/types/user";
+import Link from "next/link";
 
 const users: User[] = [
   {
@@ -122,12 +123,14 @@ const UserPage = () => {
                             {user.end}
                           </td>
                           <td className="px-7.5 py-8">
-                            <Image
-                              width={18}
-                              height={18}
-                              src={"/images/file-pen.svg"}
-                              alt="File Pen"
-                            />
+                            <Link href={`/user/${user.id}`}>
+                              <Image
+                                width={18}
+                                height={18}
+                                src={"/images/file-pen.svg"}
+                                alt="File Pen"
+                              />
+                            </Link>
                           </td>
                         </tr>
                       ))}
