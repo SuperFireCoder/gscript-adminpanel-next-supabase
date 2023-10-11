@@ -3,7 +3,7 @@ const Header = (props: {
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
   return (
-    <header className="sticky h-20 top-0 z-999 flex w-full bg-white drop-shadow-1">
+    <header className="sticky h-20 top-0 z-10 flex w-full bg-white drop-shadow-1">
       <div className="flex flex-grow items-center justify-end px-9 py-4 shadow-2">
         <div className="flex flex-col gap-1">
           <div className="flex gap-3 items-center">
