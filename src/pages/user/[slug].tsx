@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import RootLayout from "@/components/Layout/layout";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/UserModal";
 
 const UserEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
