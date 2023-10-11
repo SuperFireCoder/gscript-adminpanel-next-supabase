@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
 import RootLayout from "@/components/Layout/layout";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/AdminModal";
 
 const User = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const { slug } = router.query;
 
@@ -44,7 +46,10 @@ const User = () => {
             </div>
 
             <div className="flex justify-between">
-              <button className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
+              <button
+                className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
+                onClick={() => setIsModalOpen(true)}
+              >
                 <Image
                   width={18}
                   height={18}
@@ -68,6 +73,7 @@ const User = () => {
           </div>
         </div>
       </div>
+      <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
     </RootLayout>
   );
 };

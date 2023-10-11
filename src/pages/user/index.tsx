@@ -6,9 +6,9 @@ import RootLayout from "@/components/Layout/layout";
 import { Users } from "@/types/user";
 import { USER_ROLE } from "@/consts/role";
 
-const UserPage = async () => {
+const UserPage = () => {
   const [searchUser, setSearchUser] = useState("");
-  const { data, error } = await supabase.from("countries").select();
+
   return (
     <RootLayout>
       <div className="col-span-12">
