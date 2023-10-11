@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Loader from "@/components/common/Loader";
 
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
