@@ -23,6 +23,7 @@ const config: Config = {
       bodydark1: "#DEE4EE",
       bodydark2: "#8A99AF",
       primary: "#111927",
+      primary2: "#052052",
       secondary: "#0B1A35",
       stroke: "#E2E8F0",
       gray: "#6C737F",
@@ -201,6 +202,7 @@ const config: Config = {
         22.5: "5.625rem",
         42.5: "10.625rem",
         47.5: "11.875rem",
+        60: "15rem",
         75: "18.75rem",
       },
       zIndex: {
