@@ -1,76 +1,37 @@
-import RootLayout from "@/components/Layout/layout";
+import { useState } from "react";
 import Image from "next/image";
-import { User } from "@/types/user";
 import Link from "next/link";
 
-const users: User[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    subscription: "Free Trial",
-    start: "09/08/2023",
-    end: "09/08/2023",
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    subscription: "Free Trial",
-    start: "09/08/2023",
-    end: "09/08/2023",
-  },
-  {
-    id: 3,
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    subscription: "Free Trial",
-    start: "09/08/2023",
-    end: "09/08/2023",
-  },
-  {
-    id: 4,
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    subscription: "Free Trial",
-    start: "09/08/2023",
-    end: "09/08/2023",
-  },
-  {
-    id: 5,
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    subscription: "Free Trial",
-    start: "09/08/2023",
-    end: "09/08/2023",
-  },
-  {
-    id: 6,
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    subscription: "Free Trial",
-    start: "09/08/2023",
-    end: "09/08/2023",
-  },
-  {
-    id: 7,
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    subscription: "Free Trial",
-    start: "09/08/2023",
-    end: "09/08/2023",
-  },
-];
+import RootLayout from "@/components/Layout/layout";
+import { Users } from "@/types/user";
+import { USER_ROLE } from "@/consts/role";
 
-const UserPage = () => {
+const UserPage = async () => {
+  const [searchUser, setSearchUser] = useState("");
+  const { data, error } = await supabase.from("countries").select();
   return (
     <RootLayout>
       <div className="col-span-12">
         <div className="rounded-sm border border-gray border-b-0 bg-white shadow-default">
           <div className="flex justify-between px-9 py-6.5">
-            <div>
-              <h4 className="text-title-sm2 font-bold text-primary">Users</h4>
+            <h4 className="text-title-sm2 font-bold text-primary">Users</h4>
+            <div className="flex items-center overflow-hidden">
+              <Image
+                width={18}
+                height={18}
+                src={"/images/icon-search.svg"}
+                alt="Search"
+              />
+              <input
+                type="text"
+                placeholder="Search for a user"
+                className="py-2 px-2.5 text-gray placeholder-gray bg-transparent focus:outline-none"
+                onChange={(e) => {
+                  setSearchUser(e.target.value);
+                }}
+              />
             </div>
+            <div></div>
           </div>
 
           <div className="flex flex-col">
@@ -102,7 +63,16 @@ const UserPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map((user) => (
+                      {Users.filter(
+                        (user) =>
+                          user.role === USER_ROLE.NORMAL &&
+                          (user.name
+                            .toLowerCase()
+                            .includes(searchUser.toLowerCase()) ||
+                            user.email
+                              .toLowerCase()
+                              .includes(searchUser.toLowerCase()))
+                      ).map((user) => (
                         <tr
                           key={user.id}
                           className="border-b border-gray text-sm"
@@ -122,7 +92,7 @@ const UserPage = () => {
                           <td className="whitespace-nowrap px-7.5 py-8 font-medium">
                             {user.end}
                           </td>
-                          <td className="px-7.5 py-8">
+                          <td className="px-7.5 py-8 flex justify-end">
                             <Link href={`/user/${user.id}`}>
                               <Image
                                 width={18}
