@@ -11,7 +11,7 @@ const UserModal = (props: Props) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-99">
       <div
-        className="fixed top-0 left-0 w-screen h-screen bg-black opacity-50"
+        className="fixed top-0 left-0 w-screen h-screen bg-black opacity-70"
         onClick={() => closeModal()}
       ></div>
       <div className="flex flex-col items-center bg-white w-11/12 md:w-142 mx-auto rounded-lg shadow-lg z-50 overflow-y-auto py-16 text-center">
