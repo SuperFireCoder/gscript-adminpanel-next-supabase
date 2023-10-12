@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import RootLayout from "../../../components/Layout";
 import Modal from "../../../components/Modal/UserModal";
 
 const UserEdit = () => {

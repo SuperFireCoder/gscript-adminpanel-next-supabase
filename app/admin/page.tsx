@@ -3,7 +3,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import RootLayout from "../../components/Layout";
 import { Users } from "../../types/user";
 import { USER_ROLE } from "../../consts/role";
 

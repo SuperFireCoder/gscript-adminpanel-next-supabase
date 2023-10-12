@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import RootLayout from "../../components/Layout";
 import LinearChart from "../../components/LinearChart";
 import CardDataStats from "../../components/CardDataStats";
 import DonutChart from "../../components/DonutChart";
