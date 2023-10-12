@@ -1,19 +1,21 @@
+"use client";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-import RootLayout from "@/components/Layout/layout";
-import LinearChart from "@/components/LinearChart";
-import CardDataStats from "@/components/CardDataStats";
-import DonutChart from "@/components/DonutChart";
-import { USER_ROLE } from "@/consts/role";
-import { Users } from "@/types/user";
+import RootLayout from "../../components/Layout";
+import LinearChart from "../../components/LinearChart";
+import CardDataStats from "../../components/CardDataStats";
+import DonutChart from "../../components/DonutChart";
+import { USER_ROLE } from "../../consts/role";
+import { Users } from "../../types/user";
 
 const DashboardPage = () => {
   const router = useRouter();
 
   return (
-    <RootLayout>
+    <>
       <div className="flex flex-col gap-7.5">
         <div className="col-span-12 rounded-sm border border-gray bg-white px-5 pt-7.5 sm:px-7.5 shadow-default">
           <div>
@@ -192,14 +194,17 @@ const DashboardPage = () => {
             </div>
 
             <div className="flex justify-center p-5.5">
-              <button className="rounded-full border border-primary2 py-2 px-6 text-center text-base font-medium text-primary2 hover:bg-opacity-90" onClick={() => router.push('/user')}>
+              <button
+                className="rounded-full border border-primary2 py-2 px-6 text-center text-base font-medium text-primary2 hover:bg-opacity-90"
+                onClick={() => router.push("/user")}
+              >
                 View All
               </button>
             </div>
           </div>
         </div>
       </div>
-    </RootLayout>
+    </>
   );
 };
 

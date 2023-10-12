@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-OpenSauceSans font-normal text-base  bg-white relative z-1;
+    @apply font-OpenSauceSans font-normal text-base bg-whiten relative z-1;
   }
 }
 
@@ -166,7 +166,7 @@ span.flatpickr-weekday,
 
 .jvectormap-tip {
   background-color: #f8fafc !important;
-  font-family: Open Sauce Sans, sans-serif;
+  font-family: Satoshi, sans-serif;
 }
 
 .map-btn .jvectormap-container .jvectormap-zoomin,

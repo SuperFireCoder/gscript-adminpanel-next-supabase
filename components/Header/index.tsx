@@ -1,7 +1,4 @@
-const Header = (props: {
-  sidebarOpen: string | boolean | undefined;
-  setSidebarOpen: (arg0: boolean) => void;
-}) => {
+const Header = () => {
   return (
     <header className="sticky h-20 top-0 z-10 flex w-full bg-white drop-shadow-1">
       <div className="flex flex-grow items-center justify-end px-9 py-4 shadow-2">
