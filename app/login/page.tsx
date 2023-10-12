@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
 
-import Footer from "@/components/Footer";
+import Footer from "../../components/Footer";
 
 export const metadata: Metadata = {
   title: "Signin Page | GScript",

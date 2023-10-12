@@ -1,7 +1,8 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -9,8 +10,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
-  const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);

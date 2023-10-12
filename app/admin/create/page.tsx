@@ -1,22 +1,16 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Image from "next/image";
+"use client";
+import { useRouter } from "next/navigation";
+import RootLayout from "../../../components/Layout";
 
-import RootLayout from "@/components/Layout/layout";
-import Modal from "@/components/Modal/AdminModal";
-
-const User = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const AdminCreate = () => {
   const router = useRouter();
-  const { slug } = router.query;
-
   return (
-    <RootLayout>
+    <>
       <div className="col-span-12">
         <div className="rounded-sm border border-gray bg-white shadow-default">
           <div className="flex justify-between border-b border-gray px-7 py-4.5">
             <h4 className="text-base font-medium text-primary">
-              Edit Admin User
+              Add a New Admin User
             </h4>
           </div>
           <div className="flex flex-col gap-7.5 p-7.5 pb-11 text-secondary">
@@ -45,19 +39,7 @@ const User = () => {
               </div>
             </div>
 
-            <div className="flex justify-between">
-              <button
-                className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
-                onClick={() => setIsModalOpen(true)}
-              >
-                <Image
-                  width={18}
-                  height={18}
-                  src={"/images/icon-trash.svg"}
-                  alt="Delete User"
-                />
-                Delete User
-              </button>
+            <div className="flex justify-end">
               <div className="flex gap-7.5">
                 <button
                   className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
@@ -66,16 +48,15 @@ const User = () => {
                   Cancel
                 </button>
                 <button className="rounded-full border border-primary2 bg-primary2 py-2 px-6 text-center font-medium text-white hover:bg-opacity-90">
-                  Save
+                  Add Admin
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
-    </RootLayout>
+    </>
   );
 };
 
-export default User;
+export default AdminCreate;

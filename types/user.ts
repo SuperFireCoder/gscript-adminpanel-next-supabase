@@ -1,4 +1,4 @@
-import { USER_ROLE } from "@/consts/role";
+import { USER_ROLE } from "../consts/role";
 
 export type User = {
   id: number;

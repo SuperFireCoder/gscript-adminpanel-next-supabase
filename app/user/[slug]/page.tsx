@@ -1,17 +1,17 @@
+"use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import RootLayout from "@/components/Layout/layout";
-import Modal from "@/components/Modal/UserModal";
+import RootLayout from "../../../components/Layout";
+import Modal from "../../../components/Modal/UserModal";
 
 const UserEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
-  const { slug } = router.query;
 
   return (
-    <RootLayout>
+    <>
       <div className="col-span-12">
         <div className="rounded-sm border border-gray bg-white shadow-default">
           <div className="flex justify-between border-b border-gray px-7 py-4.5">
@@ -110,7 +110,7 @@ const UserEdit = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
-    </RootLayout>
+    </>
   );
 };
 
