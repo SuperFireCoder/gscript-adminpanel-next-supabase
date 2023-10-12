@@ -1,6 +1,5 @@
 "use client";
 import { useRouter } from "next/navigation";
-import RootLayout from "../../../components/Layout";
 
 const AdminCreate = () => {
   const router = useRouter();
