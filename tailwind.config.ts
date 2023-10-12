@@ -28,6 +28,7 @@ const config: Config = {
       stroke: "#E2E8F0",
       gray: "#6C737F",
       graydark: "#333A48",
+      lightgray: "#EEEFF3",
       "gray-2": "#F7F9FC",
       "gray-3": "#FAFAFA",
       whiten: "#F1F5F9",
