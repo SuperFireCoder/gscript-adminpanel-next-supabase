@@ -13,8 +13,8 @@ const AdminCreate = () => {
             </h4>
           </div>
           <div className="flex flex-col gap-7.5 p-7.5 pb-11 text-secondary">
-            <div className="flex gap-7.5">
-              <div className="flex-1">
+            <div className="flex flex-wrap gap-7.5">
+              <div className="w-full md:flex-1">
                 <div className="text-sm font-medium mb-3">Email Address*</div>
                 <div className="flex items-center text-base font-medium h-11.5">
                   <input
@@ -25,7 +25,7 @@ const AdminCreate = () => {
                   />
                 </div>
               </div>
-              <div className="flex-1">
+              <div className="w-full md:flex-1">
                 <div className="text-sm font-medium mb-3">Password*</div>
                 <div className="flex items-center text-base font-medium h-11.5">
                   <input
@@ -39,7 +39,7 @@ const AdminCreate = () => {
             </div>
 
             <div className="flex justify-end">
-              <div className="flex gap-7.5">
+              <div className="flex gap-2 md:gap-4 xl:gap-7.5">
                 <button
                   className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
                   onClick={() => router.push("/admin")}
