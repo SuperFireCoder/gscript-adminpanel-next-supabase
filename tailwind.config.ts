@@ -201,6 +201,7 @@ const config: Config = {
         300: "18.75rem",
       },
       minWidth: {
+        20: "5rem",
         22.5: "5.625rem",
         42.5: "10.625rem",
         47.5: "11.875rem",

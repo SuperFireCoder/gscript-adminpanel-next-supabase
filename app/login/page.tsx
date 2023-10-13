@@ -1,16 +1,21 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Metadata } from "next";
 
+import { supabaseUserClientComponentClient } from "../../lib/supabase";
 import Footer from "../../components/Footer";
 
-export const metadata: Metadata = {
-  title: "Signin Page | GScript",
-  description: "This is Signin page for GScript",
-};
-
 const SignIn: React.FC = () => {
+  const loginSubmit = async () => {
+    const { data, error } =
+      await supabaseUserClientComponentClient.auth.signInWithPassword({
+        email: "test1@gmail.com",
+        password: "test1",
+      });
+    console.log("loginSubmit", data, error);
+  };
+
   return (
     <>
       <div className="flex justify-between items-center h-20 bg-primary px-10 xl:px-18 2xl:px-34">
@@ -28,26 +33,28 @@ const SignIn: React.FC = () => {
         </Link>
       </div>
       <div
-        className="flex flex-wrap items-center w-3/4 m-auto my-32.5 border border-stroke"
+        className="flex flex-wrap w-full xl:w-3/4 m-auto xl:my-32.5 border border-stroke"
         style={{ boxShadow: "0px 8px 13px rgba(0, 0, 0, 0.07)" }}
       >
-        <div className="w-full xl:w-1/2 flex flex-col items-center">
-          <div className="px-5 py-6.5">
+        <div className="w-full lg:w-1/2 flex flex-col items-center">
+          <div className="px-5 py-8.5">
             <Image
-              width={187}
+              width={225}
               height={186}
               src={"/images/logo/logo-dark.svg"}
               alt="Logo"
             />
           </div>
-          <Image
-            width={512}
-            height={347}
-            src={"/images/developer-logo.svg"}
-            alt="Developer Logo"
-          />
+          <div className="px-8 py-5">
+            <Image
+              width={512}
+              height={347}
+              src={"/images/developer-logo.svg"}
+              alt="Developer Logo"
+            />
+          </div>
         </div>
-        <div className="w-full xl:w-1/2">
+        <div className="w-full lg:w-1/2">
           <div className="w-full p-4 py-25 px-17.5">
             <span className="mb-1.5 block font-medium">Admin Panel</span>
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
@@ -101,9 +108,10 @@ const SignIn: React.FC = () => {
 
               <div className="mb-5">
                 <input
-                  type="submit"
+                  type="button"
                   value="Sign In"
                   className="w-full cursor-pointer rounded-full border border-primary2 bg-primary2 p-4 text-white transition hover:bg-opacity-90"
+                  onClick={loginSubmit}
                 />
               </div>
 
