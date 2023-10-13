@@ -1,8 +1,6 @@
-"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import LinearChart from "../../components/LinearChart";
 import CardDataStats from "../../components/CardDataStats";
@@ -10,9 +8,7 @@ import DonutChart from "../../components/DonutChart";
 import { USER_ROLE } from "../../consts/role";
 import { Users } from "../../types/user";
 
-const DashboardPage = () => {
-  const router = useRouter();
-
+const DashboardPage = async () => {
   return (
     <>
       <div className="flex flex-col gap-7.5">
@@ -193,12 +189,11 @@ const DashboardPage = () => {
             </div>
 
             <div className="flex justify-center p-5.5">
-              <button
-                className="rounded-full border border-primary2 py-2 px-6 text-center text-base font-medium text-primary2 hover:bg-opacity-90"
-                onClick={() => router.push("/user")}
-              >
-                View All
-              </button>
+              <Link href={"/user"}>
+                <button className="rounded-full border border-primary2 py-2 px-6 text-center text-base font-medium text-primary2 hover:bg-opacity-90">
+                  View All
+                </button>
+              </Link>
             </div>
           </div>
         </div>
