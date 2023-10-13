@@ -9,36 +9,36 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      user: {
+      subscription: {
         Row: {
-          email: string
+          created_at: string
           end: string | null
           id: number
-          name: string
-          password: string
-          role: string
+          name: string | null
+          role: string | null
           start: string | null
-          title: string
+          type: string | null
+          user_id: string | null
         }
         Insert: {
-          email: string
+          created_at?: string
           end?: string | null
           id?: number
-          name: string
-          password: string
-          role?: string
+          name?: string | null
+          role?: string | null
           start?: string | null
-          title: string
+          type?: string | null
+          user_id?: string | null
         }
         Update: {
-          email?: string
+          created_at?: string
           end?: string | null
           id?: number
-          name?: string
-          password?: string
-          role?: string
+          name?: string | null
+          role?: string | null
           start?: string | null
-          title?: string
+          type?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
