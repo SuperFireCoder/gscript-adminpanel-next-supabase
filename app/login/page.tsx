@@ -1,26 +1,21 @@
-import Link from "next/link";
 import Image from "next/image";
 
-import Footer from "../../components/Footer";
 import LoginForm from "../../components/Login";
 
-const Login: React.FC = () => {
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+const Login = async () => {
+  const supabase = createServerComponentClient({ cookies });
+  const { data } = await supabase.auth.getSession();
+
+  if (data?.session) {
+    redirect("/");
+  }
+
   return (
     <>
-      <div className="flex justify-between items-center h-20 bg-primary px-10 xl:px-18 2xl:px-34">
-        <Image
-          width={72}
-          height={59}
-          src={"/images/logo/logo.svg"}
-          alt="Logo"
-        />
-        <Link
-          href="#"
-          className="inline-flex items-center justify-center rounded-full bg-secondary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
-        >
-          Visit the Main Site
-        </Link>
-      </div>
       <div
         className="flex flex-wrap w-full xl:w-3/4 m-auto xl:my-32.5 border border-stroke"
         style={{ boxShadow: "0px 8px 13px rgba(0, 0, 0, 0.07)" }}
@@ -53,7 +48,6 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
