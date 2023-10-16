@@ -2,9 +2,17 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Users } from "../../types/user";
+import { User } from "../../types/user";
 
-const UserForm = () => {
+import { useState } from "react";
+
+interface Props {
+  users: User[];
+}
+
+const UserForm = ({ users }: Props) => {
+  const [searchUser, setSearchUser] = useState<string>("");
+
   return (
     <>
       <div className="col-span-12">
@@ -22,6 +30,10 @@ const UserForm = () => {
                 type="text"
                 placeholder="Search for a user"
                 className="py-2 px-2.5 text-gray placeholder-gray bg-transparent focus:outline-none"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setSearchUser(e.target.value.toLowerCase());
+                }}
               />
             </div>
             <div className="hidden md:block"></div>
@@ -56,38 +68,44 @@ const UserForm = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {Users.map((user) => (
-                        <tr
-                          key={user.id}
-                          className="border-b border-gray text-sm"
-                        >
-                          <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                            {user.name}
-                          </td>
-                          <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                            {user.email}
-                          </td>
-                          <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                            {user.subscription}
-                          </td>
-                          <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                            {user.start}
-                          </td>
-                          <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                            {user.end}
-                          </td>
-                          <td className="px-7.5 py-8 flex justify-end min-w-20">
-                            <Link href={`/user/${user.id}`}>
-                              <Image
-                                width={18}
-                                height={18}
-                                src={"/images/file-pen.svg"}
-                                alt="File Pen"
-                              />
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
+                      {users
+                        .filter(
+                          (user: User) =>
+                            user.name.toLowerCase().includes(searchUser) ||
+                            user.email.toLowerCase().includes(searchUser)
+                        )
+                        .map((user: User) => (
+                          <tr
+                            key={user.id}
+                            className="border-b border-gray text-sm"
+                          >
+                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                              {user.name}
+                            </td>
+                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                              {user.email}
+                            </td>
+                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                              {user.type}
+                            </td>
+                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                              {user.start?.toString()}
+                            </td>
+                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                              {user.end?.toString()}
+                            </td>
+                            <td className="px-7.5 py-8 flex justify-end min-w-20">
+                              <Link href={`/user/${user?.id}`}>
+                                <Image
+                                  width={18}
+                                  height={18}
+                                  src={"/images/file-pen.svg"}
+                                  alt="File Pen"
+                                />
+                              </Link>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
