@@ -1,5 +1,3 @@
-import { USER_ROLE } from "../consts/role";
-
 export type User = {
   id: string;
   email: string;
@@ -9,4 +7,10 @@ export type User = {
   start: Date;
   end: Date;
   created_at: Date;
+};
+
+export type Admin = {
+  id: string;
+  email: string;
+  role: string;
 };
