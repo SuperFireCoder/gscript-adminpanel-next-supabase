@@ -14,7 +14,12 @@ export async function middleware(req: NextRequest) {
       headers: requestHeaders,
     },
   });
+
   const supabase = createMiddlewareClient<Database>({ req, res });
   await supabase.auth.getSession();
   return res;
 }
+
+export const config = {
+  matcher: ["/", "/dashboard", "/user", "/admin"],
+};
