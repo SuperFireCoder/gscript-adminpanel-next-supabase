@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+"use client";
+import React from "react";
 
 interface CardDataStatsProps {
   title: string;
