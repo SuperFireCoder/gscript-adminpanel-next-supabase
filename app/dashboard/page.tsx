@@ -5,16 +5,17 @@ import Link from "next/link";
 import LinearChart from "../../components/LinearChart";
 import CardDataStats from "../../components/CardDataStats";
 import DonutChart from "../../components/DonutChart";
-import { USER_ROLE } from "../../consts/role";
-import { Users } from "../../types/user";
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const DashboardPage = async () => {
-  const supabase = createServerComponentClient({ cookies });
+import { supabase as client_supabase } from "../../lib/supabase";
+import { User } from "../../types/user";
 
+const DashboardPage = async () => {
+  // Auth user
+  const supabase = createServerComponentClient({ cookies });
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -22,6 +23,25 @@ const DashboardPage = async () => {
   if (!user) {
     redirect("/login");
   }
+
+  // Get users data
+  const { data, error } = await client_supabase
+    .from("users")
+    .select("id, email, created_at, subscription(name, role, type, start, end)")
+    .eq("subscription.role", "user")
+    .order("created_at", { ascending: false })
+    .limit(4);
+  const users_data =
+    data && !error
+      ? data
+          .filter((user: any) => user.subscription.length)
+          .map((user: any) => ({
+            id: user.id,
+            email: user.email,
+            created_at: user.created_at,
+            ...user.subscription[0],
+          }))
+      : [];
 
   return (
     <>
@@ -161,27 +181,25 @@ const DashboardPage = async () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {Users.filter(
-                          (user) => user.role === USER_ROLE.NORMAL
-                        ).map((user) => (
+                        {users_data.map((user: User) => (
                           <tr
                             key={user.id}
                             className="border-b border-gray text-sm"
                           >
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-7.5 py-8 font-medium max-w-70 whitespace-normal">
                               {user.name}
                             </td>
                             <td className="whitespace-nowrap px-7.5 py-8 font-medium">
                               {user.email}
                             </td>
                             <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                              {user.subscription}
+                              {user.type}
                             </td>
                             <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                              {user.start}
+                              {user.start?.toString()}
                             </td>
                             <td className="whitespace-nowrap px-7.5 py-8 font-medium">
-                              {user.end}
+                              {user.end?.toString()}
                             </td>
                             <td className="px-7.5 py-8 flex justify-end">
                               <Link href={`/user/${user.id}`}>

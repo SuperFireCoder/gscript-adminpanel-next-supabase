@@ -3,10 +3,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Users } from "../../types/user";
-import { USER_ROLE } from "../../consts/role";
+import { Admin } from "../../types/user";
 
-const AdminForm = () => {
+interface Props {
+  admins: Admin[];
+}
+
+const AdminForm = ({ admins }: Props) => {
   const [searchAdmin, setSearchAdmin] = useState("");
 
   return (
@@ -29,7 +32,7 @@ const AdminForm = () => {
                 placeholder="Search for a user"
                 className="py-2 px-2.5 text-gray placeholder-gray bg-transparent focus:outline-none"
                 onChange={(e) => {
-                  setSearchAdmin(e.target.value);
+                  setSearchAdmin(e.target.value.toLowerCase());
                 }}
               />
             </div>
@@ -67,41 +70,37 @@ const AdminForm = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {Users.filter(
-                        (user) =>
-                          (user.role === USER_ROLE.ADMIN ||
-                            user.role === USER_ROLE.SUPERADMIN) &&
-                          (user.name
-                            .toLowerCase()
-                            .includes(searchAdmin.toLowerCase()) ||
-                            user.email
-                              .toLowerCase()
-                              .includes(searchAdmin.toLowerCase()))
-                      ).map((user) => (
-                        <tr
-                          key={user.id}
-                          className="border-b border-gray text-sm"
-                        >
-                          <td className="whitespace-nowrap px-5 md:px-7.5 py-8 font-medium">
-                            {user.email}
-                          </td>
-                          <td className="whitespace-nowrap px-5 md:px-7.5 py-8 font-medium">
-                            <span className="bg-primary2 text-white text-xs py-0.5 px-2 h-5.5 leading-5 rounded-full">
-                              {user.role}
-                            </span>
-                          </td>
-                          <td className="px-5 md:px-7.5 py-8 flex justify-end min-w-20">
-                            <Link href={`/admin/${user.id}`}>
-                              <Image
-                                width={18}
-                                height={18}
-                                src={"/images/file-pen.svg"}
-                                alt="File Pen"
-                              />
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
+                      {admins
+                        .filter(
+                          (admin: Admin) =>
+                            admin.email.toLowerCase().includes(searchAdmin) ||
+                            admin.email.toLowerCase().includes(searchAdmin)
+                        )
+                        .map((admin: Admin) => (
+                          <tr
+                            key={admin.id}
+                            className="border-b border-gray text-sm"
+                          >
+                            <td className="whitespace-nowrap px-5 md:px-7.5 py-8 font-medium">
+                              {admin.email}
+                            </td>
+                            <td className="whitespace-nowrap px-5 md:px-7.5 py-8 font-medium">
+                              <span className="bg-primary2 text-white text-xs py-0.5 px-2 h-5.5 leading-5 rounded-full">
+                                {admin.role}
+                              </span>
+                            </td>
+                            <td className="px-5 md:px-7.5 py-8 flex justify-end min-w-20">
+                              <Link href={`/admin/${admin.id}`}>
+                                <Image
+                                  width={18}
+                                  height={18}
+                                  src={"/images/file-pen.svg"}
+                                  alt="File Pen"
+                                />
+                              </Link>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>

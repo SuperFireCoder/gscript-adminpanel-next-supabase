@@ -79,7 +79,7 @@ const UserForm = ({ users }: Props) => {
                             key={user.id}
                             className="border-b border-gray text-sm"
                           >
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-7.5 py-8 font-medium max-w-70 whitespace-normal">
                               {user.name}
                             </td>
                             <td className="whitespace-nowrap px-7.5 py-8 font-medium">
