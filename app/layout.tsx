@@ -49,10 +49,7 @@ export default async function RootLayout({
         <div className="flex flex-col h-screen">
           <div className="flex overflow-hidden" style={{ flex: "1 0 auto" }}>
             <Sidebar />
-            <div
-              // className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden"
-              className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden duration-300 ml-0 lg:ml-70"
-            >
+            <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
               <Header admin={admin_data} />
               <main>
                 <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
