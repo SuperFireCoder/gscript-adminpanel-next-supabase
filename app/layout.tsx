@@ -46,8 +46,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <div>
-          <div className="flex overflow-hidden">
+        <div className="flex flex-col h-screen">
+          <div className="flex overflow-hidden" style={{ flex: "1 0 auto" }}>
             <Sidebar />
             <div
               // className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden"
