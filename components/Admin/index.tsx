@@ -16,7 +16,7 @@ const AdminForm = ({ admins }: Props) => {
     <>
       <div className="col-span-12">
         <div className="rounded-sm border border-gray border-b-0 bg-white shadow-default">
-          <div className="flex justify-between items-center pl-9 pr-6.5 py-6 xl:py-3">
+          <div className="flex justify-between items-center pl-6.5 md:pl-9 pr-6.5 py-4.5 xl:py-3">
             <h4 className="text-lg xl:text-title-sm2 font-bold text-primary hidden md:block">
               Admin Users in the System
             </h4>
@@ -30,7 +30,7 @@ const AdminForm = ({ admins }: Props) => {
               <input
                 type="text"
                 placeholder="Search for a user"
-                className="py-2 px-2.5 text-gray placeholder-gray bg-transparent focus:outline-none"
+                className="py-2 px-2.5 max-w-40 text-gray placeholder-gray bg-transparent focus:outline-none"
                 onChange={(e) => {
                   setSearchAdmin(e.target.value.toLowerCase());
                 }}

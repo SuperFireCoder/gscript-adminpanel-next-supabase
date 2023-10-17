@@ -61,7 +61,7 @@ const DashboardPage = async () => {
 
         <div className="col-span-12 flex flex-col gap-3 shadow-default">
           <div className="text-title-lg font-bold">Website Metrics</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 border-gray border bg-white">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 border-gray border bg-white">
             <CardDataStats
               title="Unique Visitors"
               total="$18.6K"
@@ -74,7 +74,12 @@ const DashboardPage = async () => {
               rate="25%"
               levelUp
             />
-            <CardDataStats title="Bounce Rate" total="54%" rate="7%" levelUp />
+            <CardDataStats
+              title="Bounce Rate"
+              total="54%"
+              rate="7%"
+              levelDown
+            />
             <CardDataStats
               title="Average Visit Duration"
               total="2m 56s"
@@ -98,7 +103,7 @@ const DashboardPage = async () => {
 
         <div className="col-span-12 flex flex-col gap-3 shadow-default">
           <div className="text-title-lg font-bold">User Engagement Metrics</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 border-gray border bg-lightgray">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 border-gray border bg-lightgray">
             <CardDataStats
               title="Unique Visitors"
               total="$18.6K"
@@ -111,7 +116,12 @@ const DashboardPage = async () => {
               rate="25%"
               levelUp
             />
-            <CardDataStats title="Bounce Rate" total="54%" rate="7%" levelUp />
+            <CardDataStats
+              title="Bounce Rate"
+              total="54%"
+              rate="7%"
+              levelDown
+            />
             <CardDataStats
               title="Average Visit Duration"
               total="2m 56s"
@@ -129,6 +139,12 @@ const DashboardPage = async () => {
               total="-23%"
               rate="25%"
               levelUp
+            />
+            <CardDataStats
+              title="Documents shared in the last 24h"
+              total="16"
+              rate="7%"
+              levelDown
             />
           </div>
         </div>
@@ -159,24 +175,39 @@ const DashboardPage = async () => {
                     <table className="min-w-full text-secondary text-left">
                       <thead className="border-y border-gray text-base">
                         <tr>
-                          <th scope="col" className="px-7.5 py-4.5 font-medium">
+                          <th
+                            scope="col"
+                            className="px-4 xl:px-7.5 py-4.5 font-medium"
+                          >
                             Name
                           </th>
-                          <th scope="col" className="px-7.5 py-4.5 font-medium">
+                          <th
+                            scope="col"
+                            className="px-4 xl:px-7.5 py-4.5 font-medium"
+                          >
                             Email
                           </th>
-                          <th scope="col" className="px-7.5 py-4.5 font-medium">
+                          <th
+                            scope="col"
+                            className="px-4 xl:px-7.5 py-4.5 font-medium"
+                          >
                             Subscription Title
                           </th>
-                          <th scope="col" className="px-7.5 py-4.5 font-medium">
+                          <th
+                            scope="col"
+                            className="px-4 xl:px-7.5 py-4.5 font-medium"
+                          >
                             Subscription Start
                           </th>
-                          <th scope="col" className="px-7.5 py-4.5 font-medium">
+                          <th
+                            scope="col"
+                            className="px-4 xl:px-7.5 py-4.5 font-medium"
+                          >
                             Subscription End
                           </th>
                           <th
                             scope="col"
-                            className="px-7.5 py-4.5 font-medium"
+                            className="px-4 l:px-7.5 py-4.5 font-medium"
                           ></th>
                         </tr>
                       </thead>
@@ -186,30 +217,32 @@ const DashboardPage = async () => {
                             key={user.id}
                             className="border-b border-gray text-sm"
                           >
-                            <td className="px-7.5 py-8 font-medium max-w-70 whitespace-normal">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium max-w-70 whitespace-normal">
                               {user.name}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium whitespace-normal">
                               {user.email}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.type}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.start?.toString()}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.end?.toString()}
                             </td>
-                            <td className="px-7.5 py-8 flex justify-end">
-                              <Link href={`/user/${user.id}`}>
-                                <Image
-                                  width={18}
-                                  height={18}
-                                  src={"/images/file-pen.svg"}
-                                  alt="File Pen"
-                                />
-                              </Link>
+                            <td className="px-4 xl:px-7.5 py-8 min-w-20">
+                              <div>
+                                <Link href={`/user/${user.id}`}>
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/images/file-pen.svg"}
+                                    alt="File Pen"
+                                  />
+                                </Link>
+                              </div>
                             </td>
                           </tr>
                         ))}

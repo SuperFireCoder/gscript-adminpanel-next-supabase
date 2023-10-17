@@ -17,7 +17,7 @@ const UserForm = ({ users }: Props) => {
     <>
       <div className="col-span-12">
         <div className="rounded-sm border border-gray border-b-0 bg-white shadow-default">
-          <div className="flex justify-between px-9 py-6.5">
+          <div className="flex justify-between items-center px-9 py-6.5">
             <h4 className="text-title-sm2 font-bold text-primary">Users</h4>
             <div className="flex items-center overflow-hidden">
               <Image
@@ -29,7 +29,7 @@ const UserForm = ({ users }: Props) => {
               <input
                 type="text"
                 placeholder="Search for a user"
-                className="py-2 px-2.5 text-gray placeholder-gray bg-transparent focus:outline-none"
+                className="py-2 px-2.5 max-w-40 text-gray placeholder-gray bg-transparent focus:outline-none"
                 onChange={(e) => {
                   e.preventDefault();
                   setSearchUser(e.target.value.toLowerCase());
