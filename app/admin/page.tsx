@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 
 import { supabase as client_supabase } from "../../lib/supabase";
 
+import { USER_ROLE } from "../../consts/role";
+
 const AdminPage = async () => {
   // Auth User
   const supabase = createServerComponentClient({ cookies });
@@ -26,8 +28,8 @@ const AdminPage = async () => {
           .filter(
             (user: any) =>
               (user.subscription.length &&
-                user.subscription[0].role === "admin") ||
-              user.subscription[0].role === "superadmin"
+                user.subscription[0].role === USER_ROLE.ADMIN) ||
+              user.subscription[0].role === USER_ROLE.SUPERADMIN
           )
           .map((user: any) => ({
             id: user.id,

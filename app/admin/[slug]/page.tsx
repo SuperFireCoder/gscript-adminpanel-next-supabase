@@ -24,7 +24,8 @@ const AdminEditPage = async ({
   const { data, error } = await client_supabase
     .from("users")
     .select("id, email, subscription(role)")
-    .eq("id", slug);
+    .eq("id", slug)
+    .limit(1);
   const admin_data =
     data && !error
       ? data.map((admin: any) => ({
