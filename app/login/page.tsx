@@ -8,9 +8,10 @@ import { redirect } from "next/navigation";
 
 const Login = async () => {
   const supabase = createServerComponentClient({ cookies });
-  const { data } = await supabase.auth.getSession();
-
-  if (data?.session) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) {
     redirect("/");
   }
 
