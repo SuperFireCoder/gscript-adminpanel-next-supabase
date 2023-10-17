@@ -135,6 +135,7 @@ const LinearChart: React.FC = () => {
       series={state.series}
       type="bar"
       height={300}
+      width="100%"
     />
   );
 };

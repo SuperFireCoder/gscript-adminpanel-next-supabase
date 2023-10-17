@@ -11,18 +11,18 @@ interface DonutChart {
 }
 
 const options: ApexOptions = {
-  title: {
-    text: "900",
-    style: { fontSize: "28px", fontWeight: "700", color: "#111927" },
-    align: "center",
-    offsetY: 210,
-  },
-  subtitle: {
-    text: "Active Subscriptions",
-    style: { fontSize: "16px", fontWeight: "500", color: "#6C737F" },
-    align: "center",
-    offsetY: 250,
-  },
+  // title: {
+  //   text: "900",
+  //   style: { fontSize: "28px", fontWeight: "700", color: "#111927" },
+  //   align: "center",
+  //   offsetY: 210,
+  // },
+  // subtitle: {
+  //   text: "Active Subscriptions",
+  //   style: { fontSize: "16px", fontWeight: "500", color: "#6C737F" },
+  //   align: "center",
+  //   offsetY: 250,
+  // },
   chart: {
     type: "donut",
   },
@@ -53,10 +53,26 @@ const options: ApexOptions = {
       },
     },
     {
-      breakpoint: 640,
+      breakpoint: 1536,
       options: {
         chart: {
-          width: 200,
+          width: 500,
+        },
+      },
+    },
+    {
+      breakpoint: 1280,
+      options: {
+        chart: {
+          width: 400,
+        },
+      },
+    },
+    {
+      breakpoint: 1028,
+      options: {
+        chart: {
+          width: 300,
         },
       },
     },
@@ -69,7 +85,14 @@ const DonutChart: React.FC = () => {
   });
 
   return (
-    <ReactApexChart options={options} series={state.series} type="donut" />
+    <ReactApexChart
+      options={options}
+      series={state.series}
+      type="donut"
+      width="100%"
+      height="500"
+      // className="h-60 lg:h-80 xl:h-100 2xl:h-125"
+    />
   );
 };
 
