@@ -21,9 +21,9 @@ const UserEditForm = ({ user }: Props) => {
           <div className="flex justify-between border-b border-gray px-7 py-4.5">
             <h4 className="text-base font-medium text-primary">Edit Users</h4>
           </div>
-          <div className="flex flex-col gap-7.5 p-7.5 pb-11 text-secondary">
-            <div className="flex gap-7.5">
-              <div className="flex flex-col gap-7.5 w-1/2">
+          <div className="flex flex-col gap-7.5 p-11 md:p-7.5 pb-11 text-secondary">
+            <div className="flex flex-col md:flex-row gap-7.5">
+              <div className="flex flex-col gap-7.5 w-full md:w-1/2">
                 <div>
                   <div className="text-sm font-medium mb-3">Name</div>
                   <div className="flex items-center text-base font-medium h-11.5">
@@ -51,15 +51,15 @@ const UserEditForm = ({ user }: Props) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-7.5 w-1/2">
+              <div className="flex flex-col gap-7.5 w-full md:w-1/2">
                 <div>
                   <div className="text-sm font-medium mb-3">
                     Current Subscription
                   </div>
-                  <div className="flex items-center gap-5 text-base font-medium h-11.5">
+                  <div className="flex items-center gap-5 text-base font-medium h-11.5 justify-between md:justify-normal">
                     {user[0].type}
                     {user[0].type !== "None" && (
-                      <button className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 pt-2 pb-2.5 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
+                      <button className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 pt-2 pb-2.5 text-center font-medium text-primary2 hover:bg-opacity-90 px-2.5 xl:px-6">
                         <Image
                           width={18}
                           height={18}
@@ -95,7 +95,7 @@ const UserEditForm = ({ user }: Props) => {
                 )}
               </div>
             </div>
-            <div className="flex justify-between">
+            <div className="flex flex-col gap-7.5 md:flex-row justify-between">
               <button
                 className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
                 onClick={() => setIsModalOpen(true)}
@@ -108,7 +108,7 @@ const UserEditForm = ({ user }: Props) => {
                 />
                 Delete User
               </button>
-              <div className="flex gap-7.5">
+              <div className="flex justify-end gap-3 lg:gap-7.5">
                 <Link href={"/user"}>
                   <button className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
                     Cancel

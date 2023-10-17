@@ -46,24 +46,39 @@ const UserForm = ({ users }: Props) => {
                   <table className="min-w-full text-secondary text-left">
                     <thead className="border-y border-gray text-base">
                       <tr>
-                        <th scope="col" className="px-7.5 py-4.5 font-medium">
+                        <th
+                          scope="col"
+                          className="px-4 xl:px-7.5 py-4.5 font-medium"
+                        >
                           Name
                         </th>
-                        <th scope="col" className="px-7.5 py-4.5 font-medium">
+                        <th
+                          scope="col"
+                          className="px-4 xl:px-7.5 py-4.5 font-medium"
+                        >
                           Email
                         </th>
-                        <th scope="col" className="px-7.5 py-4.5 font-medium">
+                        <th
+                          scope="col"
+                          className="px-4 xl:px-7.5 py-4.5 font-medium"
+                        >
                           Subscription Title
                         </th>
-                        <th scope="col" className="px-7.5 py-4.5 font-medium">
+                        <th
+                          scope="col"
+                          className="px-4 xl:px-7.5 py-4.5 font-medium"
+                        >
                           Subscription Start
                         </th>
-                        <th scope="col" className="px-7.5 py-4.5 font-medium">
+                        <th
+                          scope="col"
+                          className="px-4 xl:px-7.5 py-4.5 font-medium"
+                        >
                           Subscription End
                         </th>
                         <th
                           scope="col"
-                          className="px-7.5 py-4.5 font-medium"
+                          className="px-4 xl:px-7.5 py-4.5 font-medium"
                         ></th>
                       </tr>
                     </thead>
@@ -79,22 +94,22 @@ const UserForm = ({ users }: Props) => {
                             key={user.id}
                             className="border-b border-gray text-sm"
                           >
-                            <td className="px-7.5 py-8 font-medium max-w-70 whitespace-normal">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium max-w-70 whitespace-normal">
                               {user.name}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.email}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.type}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.start?.toString()}
                             </td>
-                            <td className="whitespace-nowrap px-7.5 py-8 font-medium">
+                            <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.end?.toString()}
                             </td>
-                            <td className="px-7.5 py-8 flex justify-end min-w-20">
+                            <td className="px-4 xl:px-7.5 py-8 min-w-20">
                               <Link href={`/user/${user?.id}`}>
                                 <Image
                                   width={18}
