@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Admin } from "../../types/user";
+
 interface Props {
-  user: any;
+  admin: Admin[];
 }
 
-const Header = ({ user }: Props) => {
+const Header = ({ admin }: Props) => {
   const supabase = createClientComponentClient();
   const pathname = usePathname();
 
@@ -47,9 +49,9 @@ const Header = ({ user }: Props) => {
               <div className="flex flex-col gap-1">
                 <div className="flex gap-3 items-center">
                   <span className="bg-primary2 text-white text-xs py-0.5 px-2 leading-5 rounded-full">
-                    Super Admin
+                    {admin[0]?.role}
                   </span>
-                  <span className="text-sm">{user?.email}</span>
+                  <span className="text-sm">{admin[0]?.email}</span>
                 </div>
                 <div
                   className="text-right text-gray text-xs cursor-pointer"

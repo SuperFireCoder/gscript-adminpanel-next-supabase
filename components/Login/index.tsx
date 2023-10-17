@@ -1,9 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-import { supabaseUserClientComponentClient as supabase } from "../../lib/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface FormData {
   email: string;
@@ -16,12 +14,13 @@ interface FormErrors {
 }
 
 const LoginForm: React.FC = () => {
+  const supabase = createClientComponentClient();
+
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
-  const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,11 +49,11 @@ const LoginForm: React.FC = () => {
   const loginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         ...formData,
       });
-      console.log("loginSubmit", data, error);
-      router.push("/dashboard");
+      if (error) {
+      }
     }
   };
 
