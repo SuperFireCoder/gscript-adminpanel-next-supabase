@@ -9,58 +9,55 @@ interface SidebarProps {
   setSidebarOpen: (arg: boolean) => void;
 }
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+const Sidebar = () => {
   const pathname = usePathname();
 
-  const trigger = useRef<any>(null);
-  const sidebar = useRef<any>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  let storedSidebarExpanded = "true";
-  const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
-  );
+  useEffect(() => {
+    const isLogin = pathname.includes("/login");
+    setSidebarOpen(!isLogin);
+  }, [pathname]);
+
+  // const trigger = useRef<any>(null);
+  // const sidebar = useRef<any>(null);
+
+  // let storedSidebarExpanded = "true";
+  // const [sidebarExpanded, setSidebarExpanded] = useState(
+  //   storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
+  // );
 
   // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }: MouseEvent) => {
-      if (!sidebar.current || !trigger.current) return;
-      if (
-        !sidebarOpen ||
-        sidebar.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setSidebarOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
+  // useEffect(() => {
+  //   const clickHandler = ({ target }: MouseEvent) => {
+  //     if (!sidebar.current || !trigger.current) return;
+  //     if (
+  //       !sidebarOpen ||
+  //       sidebar.current.contains(target) ||
+  //       trigger.current.contains(target)
+  //     )
+  //       return;
+  //     setSidebarOpen(false);
+  //   };
+  //   document.addEventListener("click", clickHandler);
+  //   return () => document.removeEventListener("click", clickHandler);
+  // });
 
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }: KeyboardEvent) => {
-      if (!sidebarOpen || keyCode !== 27) return;
-      setSidebarOpen(false);
-    };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
-  });
-
-  useEffect(() => {
-    localStorage.setItem("sidebar-expanded", sidebarExpanded.toString());
-    if (sidebarExpanded) {
-      document.querySelector("body")?.classList.add("sidebar-expanded");
-    } else {
-      document.querySelector("body")?.classList.remove("sidebar-expanded");
-    }
-  }, [sidebarExpanded]);
+  // useEffect(() => {
+  //   localStorage.setItem("sidebar-expanded", sidebarExpanded.toString());
+  //   if (sidebarExpanded) {
+  //     document.querySelector("body")?.classList.add("sidebar-expanded");
+  //   } else {
+  //     document.querySelector("body")?.classList.remove("sidebar-expanded");
+  //   }
+  // }, [sidebarExpanded]);
 
   return (
     <aside
-      ref={sidebar}
-      className={`absolute left-0 top-0 z-20 flex w-70 flex-col overflow-y-hidden bg-primary duration-300 ease-linear lg:static lg:translate-x-0 ${
-        sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      // className={`absolute left-0 top-0 z-20 flex w-70 flex-col overflow-y-hidden bg-primary duration-300 ease-linear -translate-x-full ${
+      //   sidebarOpen && "lg:static lg:translate-x-0"
+      // }`}
+      className={`z-20 fixed top-0 h-full flex flex-col overflow-x-hidden bg-primary duration-300 ease-linear w-70 -left-70 lg:left-0`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-center gap-2 px-6.5 py-6 lg:py-6.5">
@@ -81,7 +78,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <li>
             <Link
               href="/dashboard"
-              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium duration-300 ease-in-out ${
+              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium ${
                 pathname.includes("dashboard") || pathname === "/"
                   ? "text-primary bg-white hover:bg-bodydark"
                   : "text-white bg-gray hover:bg-graydark"
@@ -106,7 +103,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <li>
             <Link
               href="/user"
-              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium duration-300 ease-in-out ${
+              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium ${
                 pathname.includes("user")
                   ? "text-primary bg-white hover:bg-bodydark"
                   : "text-white bg-gray hover:bg-graydark"
@@ -131,7 +128,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <li>
             <Link
               href="/admin"
-              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium duration-300 ease-in-out ${
+              className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium ${
                 pathname.includes("admin")
                   ? "text-primary bg-white hover:bg-bodydark"
                   : "text-white bg-gray hover:bg-graydark"
