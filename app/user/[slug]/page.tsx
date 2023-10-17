@@ -24,7 +24,8 @@ const UserEditPage = async ({
   const { data, error } = await client_supabase
     .from("users")
     .select("id, email, created_at, subscription(name, role, type, start, end)")
-    .eq("id", slug);
+    .eq("id", slug)
+    .limit(1);
   const user_data =
     data && !error
       ? data.map((user: any) => ({
