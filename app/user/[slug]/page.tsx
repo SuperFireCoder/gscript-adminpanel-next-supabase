@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { supabase as client_supabase } from "../../../lib/supabase";
-import { User } from "../../../types/user";
 
 const UserEditPage = async ({
   params: { slug },

@@ -5,8 +5,31 @@ import Image from "next/image";
 
 import Modal from "../Modal/AdminModal";
 
-const AdminEditForm = () => {
+import { Admin } from "../../types/user";
+
+interface Props {
+  admin: Admin[];
+}
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
+const AdminEditForm = ({ admin }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    email: admin[0].email,
+    password: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   return (
     <>
@@ -24,9 +47,11 @@ const AdminEditForm = () => {
                 <div className="flex items-center text-base font-medium h-11.5">
                   <input
                     type="text"
-                    name="price"
-                    id="price"
+                    name="email"
+                    id="email"
                     className="block w-full h-full rounded-md border-0 px-3 py-1.5 text-primary ring-1 ring-gray ring-inset focus:ring-2 focus:ring-inset"
+                    value={formData.email}
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -35,9 +60,11 @@ const AdminEditForm = () => {
                 <div className="flex items-center text-base font-medium h-11.5">
                   <input
                     type="text"
-                    name="price"
-                    id="price"
+                    name="password"
+                    id="password"
                     className="block w-full h-full rounded-md border-0 px-3 py-1.5 text-primary ring-1 ring-gray ring-inset focus:ring-2 focus:ring-inset"
+                    value={formData.password}
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>

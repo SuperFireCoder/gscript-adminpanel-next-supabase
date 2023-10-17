@@ -5,8 +5,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabase as client_supabase } from "../../lib/supabase";
 
-import { USER_ROLE } from "../../consts/role";
-
 const UserPage = async () => {
   // Auth user
   const supabase = createServerComponentClient({ cookies });
