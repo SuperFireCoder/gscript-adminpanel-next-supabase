@@ -11,6 +11,8 @@ import AuthProvider from "../components/AuthProvider";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
+import { getAdminInfo } from "../utils/getAdminInfo";
+
 export default async function RootLayout({
   children,
 }: {
@@ -23,23 +25,8 @@ export default async function RootLayout({
   } = await supabase.auth.getSession();
   const accessToken = session?.access_token || null;
 
-  // Get User Info
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const { data, error } = await supabase
-    .from("users")
-    .select("id, email, subscription(role)")
-    .eq("id", user?.id)
-    .limit(1);
-  const admin_data =
-    data && !error
-      ? data.map((admin: any) => ({
-          id: admin.id,
-          email: admin.email,
-          ...admin.subscription[0],
-        }))
-      : [];
+  // Get admin info
+  const { data, error } = await getAdminInfo(supabase);
 
   return (
     <html lang="en">
@@ -48,7 +35,7 @@ export default async function RootLayout({
           <div className="flex overflow-hidden" style={{ flex: "1 0 auto" }}>
             <Sidebar />
             <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-              <Header admin={admin_data} />
+              <Header admin={data} />
               <main>
                 <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
                   <AuthProvider accessToken={accessToken}>

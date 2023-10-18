@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Admin } from "../../types/user";
 
 interface Props {
-  admin: Admin[];
+  admin: Admin | null;
 }
 
 const Header = ({ admin }: Props) => {
@@ -49,9 +49,9 @@ const Header = ({ admin }: Props) => {
               <div className="flex flex-col gap-1">
                 <div className="flex gap-3 items-center">
                   <span className="bg-primary2 text-white text-xs py-0.5 px-2 leading-5 rounded-full">
-                    {admin[0]?.role}
+                    {admin?.is_super ? "Super Admin" : "Admin"}
                   </span>
-                  <span className="text-sm">{admin[0]?.email}</span>
+                  <span className="text-sm">{admin?.email}</span>
                 </div>
                 <div
                   className="text-right text-gray text-xs cursor-pointer"
