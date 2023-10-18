@@ -2,15 +2,14 @@ export type User = {
   id: string;
   email: string;
   name: string;
-  role: string;
-  type: string;
-  start: Date;
-  end: Date;
   created_at: Date;
+  type?: string;
+  start?: Date;
+  end?: Date;
 };
 
 export type Admin = {
   id: string;
   email: string;
-  role: string;
+  is_super: boolean;
 };
