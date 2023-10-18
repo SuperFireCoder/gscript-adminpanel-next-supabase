@@ -12,6 +12,7 @@
   "settings": {
     "files.exclude": {
       "supabase/functions/": true
-    }
+    },
+    "iis.activeFolder": "project-root"
   }
 }

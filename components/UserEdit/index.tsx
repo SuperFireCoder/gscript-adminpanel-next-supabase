@@ -2,17 +2,47 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import Modal from "../Modal/UserModal";
+import Modal from "../Modal";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { User } from "../../types/user";
+import { SubscriptionLabel, UserDeleteLabel } from "../../consts/modal_labels";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+import { supabase as service_supabase } from "../../lib/supabase";
 
 interface Props {
   user: User[];
 }
 
 const UserEditForm = ({ user }: Props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubscriptionOpen, setIsSubscriptionOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const supabase = createClientComponentClient();
+
+  const { push } = useRouter();
+
+  const cancelSubscription = async () => {
+    console.log(user[0].id);
+    const { error } = await supabase
+      .from("subscription")
+      .update({ type: "None", start: null, end: null })
+      .eq("user_id", user[0].id);
+
+    if (!error) {
+      window.location.reload();
+    }
+  };
+
+  const deleteUser = async () => {
+    const { error } = await service_supabase.auth.admin.deleteUser(user[0].id);
+
+    if (!error) {
+      push("/users");
+    }
+  };
 
   return (
     <>
@@ -59,7 +89,10 @@ const UserEditForm = ({ user }: Props) => {
                   <div className="flex items-center gap-5 text-base font-medium h-11.5 justify-between md:justify-normal">
                     {user[0].type}
                     {user[0].type !== "None" && (
-                      <button className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 pt-2 pb-2.5 text-center font-medium text-primary2 hover:bg-opacity-90 px-2.5 xl:px-6">
+                      <button
+                        className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 pt-2 pb-2.5 text-center font-medium text-primary2 hover:bg-opacity-90 px-2.5 xl:px-6"
+                        onClick={() => setIsSubscriptionOpen(true)}
+                      >
                         <Image
                           width={18}
                           height={18}
@@ -98,7 +131,7 @@ const UserEditForm = ({ user }: Props) => {
             <div className="flex flex-col gap-7.5 md:flex-row justify-between">
               <button
                 className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => setIsDeleteOpen(true)}
               >
                 <Image
                   width={18}
@@ -109,7 +142,7 @@ const UserEditForm = ({ user }: Props) => {
                 Delete User
               </button>
               <div className="flex justify-end gap-3 lg:gap-7.5">
-                <Link href={"/user"}>
+                <Link href={"/users"}>
                   <button className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
                     Cancel
                   </button>
@@ -122,7 +155,18 @@ const UserEditForm = ({ user }: Props) => {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+      <Modal
+        isOpen={isSubscriptionOpen}
+        label={SubscriptionLabel(user[0].name)}
+        closeModal={() => setIsSubscriptionOpen(false)}
+        onSubmit={cancelSubscription}
+      />
+      <Modal
+        isOpen={isDeleteOpen}
+        label={UserDeleteLabel(user[0].name)}
+        closeModal={() => setIsDeleteOpen(false)}
+        onSubmit={deleteUser}
+      />
     </>
   );
 };

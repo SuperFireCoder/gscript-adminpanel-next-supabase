@@ -1,3 +1,3 @@
 export default function Loading() {
-  return <div className="card h-72 text-2xl">Loading...</div>;
+  return <div className="text-3xl text-center ">Loading...</div>;
 }

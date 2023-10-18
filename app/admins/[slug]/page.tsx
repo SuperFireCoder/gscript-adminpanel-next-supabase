@@ -1,10 +1,11 @@
 import AdminEditForm from "../../../components/AdminEdit";
+import AlertDanger from "../../../components/Alerts/Danger";
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { supabase as client_supabase } from "../../../lib/supabase";
+import { getUserData } from "../../../utils/getUserData";
 
 const AdminEditPage = async ({
   params: { slug },
@@ -21,21 +22,17 @@ const AdminEditPage = async ({
   }
 
   // Get admin data by slug
-  const { data, error } = await client_supabase
-    .from("users")
-    .select("id, email, subscription(role)")
-    .eq("id", slug)
-    .limit(1);
-  const admin_data =
-    data && !error
-      ? data.map((admin: any) => ({
-          id: admin.id,
-          email: admin.email,
-          ...admin.subscription[0],
-        }))
-      : [];
+  const { user_data, error } = await getUserData(slug, supabase);
 
-  return <AdminEditForm admin={admin_data} />;
+  return (
+    <>
+      {error ? (
+        <AlertDanger title={"Error"} content={error.message} />
+      ) : (
+        <AdminEditForm admin={user_data} />
+      )}
+    </>
+  );
 };
 
 export default AdminEditPage;

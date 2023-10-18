@@ -22,6 +22,8 @@ const LoginForm: React.FC = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
+  const [errorMsg, setErrorMsg] = useState("");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -49,10 +51,11 @@ const LoginForm: React.FC = () => {
   const loginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         ...formData,
       });
       if (error) {
+        setErrorMsg(error.message);
       }
     }
   };
@@ -123,6 +126,11 @@ const LoginForm: React.FC = () => {
             value="Sign In"
             className="w-full cursor-pointer rounded-full border border-primary2 bg-primary2 p-4 text-white transition hover:bg-opacity-90"
           />
+          {errorMsg && (
+            <div className="text-sm text-center text-danger font-medium p-2">
+              {errorMsg}
+            </div>
+          )}
         </div>
 
         <div className="mt-6 text-center text-gray">

@@ -3,9 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import Modal from "../Modal/AdminModal";
+import Modal from "../Modal";
 
 import { Admin } from "../../types/user";
+import { AdminDeleteLabel } from "../../consts/modal_labels";
 
 interface Props {
   admin: Admin[];
@@ -18,6 +19,7 @@ interface FormData {
 
 const AdminEditForm = ({ admin }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [formData, setFormData] = useState<FormData>({
     email: admin[0].email,
     password: "",
@@ -30,6 +32,8 @@ const AdminEditForm = ({ admin }: Props) => {
       [name]: value,
     });
   };
+
+  const deleteAdmin = () => {};
 
   return (
     <>
@@ -84,7 +88,7 @@ const AdminEditForm = ({ admin }: Props) => {
                 Delete User
               </button>
               <div className="flex gap-2 justify-end lg:gap-7.5">
-                <Link href={"/admin"}>
+                <Link href={"/admins"}>
                   <button className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
                     Cancel
                   </button>
@@ -97,7 +101,13 @@ const AdminEditForm = ({ admin }: Props) => {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+
+      <Modal
+        isOpen={isModalOpen}
+        label={AdminDeleteLabel(admin[0].email)}
+        closeModal={() => setIsModalOpen(false)}
+        onSubmit={deleteAdmin}
+      />
     </>
   );
 };
