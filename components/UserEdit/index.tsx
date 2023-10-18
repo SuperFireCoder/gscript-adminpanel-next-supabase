@@ -19,17 +19,18 @@ interface Props {
 const UserEditForm = ({ user }: Props) => {
   const [isSubscriptionOpen, setIsSubscriptionOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [password, setPassword] = useState<string>("");
 
   const supabase = createClientComponentClient();
 
   const { push } = useRouter();
 
   const cancelSubscription = async () => {
-    console.log(user[0].id);
     const { error } = await supabase
       .from("subscription")
       .update({ type: "None", start: null, end: null })
-      .eq("user_id", user[0].id);
+      .eq("user_id", user[0].id)
+      .select();
 
     if (!error) {
       window.location.reload();
@@ -40,6 +41,26 @@ const UserEditForm = ({ user }: Props) => {
     const { error } = await service_supabase.auth.admin.deleteUser(user[0].id);
 
     if (!error) {
+      push("/users");
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setPassword(e.target.value);
+  };
+
+  const onSave = async () => {
+    if (password) {
+      const { error } = await service_supabase.auth.admin.updateUserById(
+        user[0].id,
+        { password }
+      );
+
+      if (!error) {
+        push("/users");
+      }
+    } else {
       push("/users");
     }
   };
@@ -72,10 +93,12 @@ const UserEditForm = ({ user }: Props) => {
                   <div className="text-sm font-medium mb-3">New Password</div>
                   <div className="flex items-center text-base font-medium h-11.5">
                     <input
-                      type="text"
-                      name="price"
-                      id="price"
+                      type="password"
+                      name="password"
+                      id="password"
                       className="block w-full h-full rounded-md border-0 px-3 py-1.5 text-primary ring-1 ring-gray ring-inset focus:ring-2 focus:ring-inset"
+                      value={password}
+                      onChange={handlePasswordChange}
                     />
                   </div>
                 </div>
@@ -147,7 +170,10 @@ const UserEditForm = ({ user }: Props) => {
                     Cancel
                   </button>
                 </Link>
-                <button className="rounded-full border border-primary2 bg-primary2 py-2 px-6 text-center font-medium text-white hover:bg-opacity-90">
+                <button
+                  className="rounded-full border border-primary2 bg-primary2 py-2 px-6 text-center font-medium text-white hover:bg-opacity-90"
+                  onClick={onSave}
+                >
                   Save
                 </button>
               </div>
