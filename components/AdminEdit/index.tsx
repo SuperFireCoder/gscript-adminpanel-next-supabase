@@ -73,7 +73,7 @@ const AdminEditForm = ({ admin }: Props) => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      const { data, error } = await service_supabase.auth.admin.updateUserById(
+      const { error } = await service_supabase.auth.admin.updateUserById(
         admin.user_id,
         { ...formData }
       );
