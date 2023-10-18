@@ -1,7 +1,7 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Admin } from "../types/user";
 
-export const getAdminInfo = async (supabase: SupabaseClient) => {
+export const getAuthAdminInfo = async (supabase: SupabaseClient) => {
   const {
     data: { user },
     error: err1,

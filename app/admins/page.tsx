@@ -6,7 +6,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { USER_ROLE } from "../../consts/role";
+import { getAuthAdminInfo } from "../../utils/getAuthAdminInfo";
+import { getAdmins } from "../../utils/getAdmins";
 
 const AdminPage = async () => {
   // Auth User
@@ -17,35 +18,12 @@ const AdminPage = async () => {
   if (!user) {
     redirect("/login");
   }
-  const { data: auth_data, error: err1 } = await supabase
-    .from("users")
-    .select("id, email, subscription(role)")
-    .eq("id", user?.id)
-    .limit(1);
-  const admin_data =
-    auth_data && !err1
-      ? auth_data.map((admin: any) => ({
-          id: admin.id,
-          email: admin.email,
-          ...admin.subscription[0],
-        }))
-      : [];
+
+  // Get auth admin info
+  const { data: auth_admin, error: err1 } = await getAuthAdminInfo(supabase);
 
   // Get admins data
-  const { data, error: err2 } = await supabase
-    .from("users")
-    .select("id, email, subscription(role)")
-    .eq("subscription.role", "Admin");
-  const admins_data =
-    data && !err2
-      ? data
-          .filter((user: any) => user.subscription.length)
-          .map((user: any) => ({
-            id: user.id,
-            email: user.email,
-            ...user.subscription[0],
-          }))
-      : [];
+  const { admins, error: err2 } = await getAdmins(supabase);
 
   return (
     <>
@@ -53,13 +31,13 @@ const AdminPage = async () => {
         <AlertDanger title={"Error"} content={err1.message} />
       ) : err2 ? (
         <AlertDanger title={"Error"} content={err2.message} />
-      ) : admin_data[0]?.role !== USER_ROLE.SUPERADMIN ? (
+      ) : auth_admin?.is_super ? (
+        <AdminForm admins={admins} />
+      ) : (
         <AlertWarning
           title={"Warning"}
           content={"Only Superadmin users can access to this page."}
         />
-      ) : (
-        <AdminForm admins={admins_data} />
       )}
     </>
   );
