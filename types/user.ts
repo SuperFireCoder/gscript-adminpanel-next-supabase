@@ -1,5 +1,6 @@
 export type User = {
-  id: string;
+  id: number;
+  user_id: string;
   email: string;
   name: string;
   created_at: Date;
@@ -9,7 +10,8 @@ export type User = {
 };
 
 export type Admin = {
-  id: string;
+  id: number;
+  user_id: string;
   email: string;
   is_super: boolean;
 };

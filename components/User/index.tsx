@@ -1,10 +1,10 @@
 "use client";
+import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
 import { User } from "../../types/user";
-
-import { useState } from "react";
 
 interface Props {
   users: User[];
@@ -101,7 +101,7 @@ const UserForm = ({ users }: Props) => {
                               {user.email}
                             </td>
                             <td className="px-4 xl:px-7.5 py-8 font-medium">
-                              {user.type}
+                              {user.type ? user.type : "None"}
                             </td>
                             <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.start?.toString()}

@@ -10,14 +10,15 @@ export const getAdminInfo = async (supabase: SupabaseClient) => {
   if (user && !err1) {
     const { data: admin, error: err2 } = await supabase
       .from("admins")
-      .select("is_super")
+      .select("id, is_super")
       .eq("user_id", user.id)
       .limit(1)
       .single();
 
     if (admin && !err2) {
       const data: Admin = {
-        id: user.id!,
+        id: admin.id,
+        user_id: user.id,
         email: user.email!,
         is_super: admin.is_super!,
       };

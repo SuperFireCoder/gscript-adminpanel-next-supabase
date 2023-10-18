@@ -6,7 +6,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { getUsers } from "../../utils/getUsers";
-import { USER_ROLE } from "../../consts/role";
 
 const UserPage = async () => {
   // Auth user
@@ -19,14 +18,14 @@ const UserPage = async () => {
   }
 
   // Get users data
-  const { users_data, error } = await getUsers(USER_ROLE.NORMAL, supabase);
+  const { users, error } = await getUsers({ supabase, type: 2 });
 
   return (
     <>
       {error ? (
         <AlertDanger title={"Error"} content={error.message} />
       ) : (
-        <UserForm users={users_data} />
+        <UserForm users={users} />
       )}
     </>
   );

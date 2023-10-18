@@ -13,7 +13,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { supabase as service_supabase } from "../../lib/supabase";
 
 interface Props {
-  user: User[];
+  user: User;
 }
 
 const UserEditForm = ({ user }: Props) => {
@@ -27,10 +27,9 @@ const UserEditForm = ({ user }: Props) => {
 
   const cancelSubscription = async () => {
     const { error } = await supabase
-      .from("subscription")
-      .update({ type: "None", start: null, end: null })
-      .eq("user_id", user[0].id)
-      .select();
+      .from("subscriptions")
+      .delete()
+      .eq("user_id", user.id);
 
     if (!error) {
       window.location.reload();
@@ -38,7 +37,9 @@ const UserEditForm = ({ user }: Props) => {
   };
 
   const deleteUser = async () => {
-    const { error } = await service_supabase.auth.admin.deleteUser(user[0].id);
+    const { error } = await service_supabase.auth.admin.deleteUser(
+      user.user_id
+    );
 
     if (!error) {
       push("/users");
@@ -53,7 +54,7 @@ const UserEditForm = ({ user }: Props) => {
   const onSave = async () => {
     if (password) {
       const { error } = await service_supabase.auth.admin.updateUserById(
-        user[0].id,
+        user.user_id,
         { password }
       );
 
@@ -78,14 +79,14 @@ const UserEditForm = ({ user }: Props) => {
                 <div>
                   <div className="text-sm font-medium mb-3">Name</div>
                   <div className="flex items-center text-base font-medium h-11.5">
-                    {user[0].name}
+                    {user.name}
                   </div>
                 </div>
 
                 <div>
                   <div className="text-sm font-medium mb-3">Email Address</div>
                   <div className="flex items-center text-base font-medium h-11.5">
-                    {user[0].email}
+                    {user.email}
                   </div>
                 </div>
 
@@ -110,8 +111,8 @@ const UserEditForm = ({ user }: Props) => {
                     Current Subscription
                   </div>
                   <div className="flex items-center gap-5 text-base font-medium h-11.5 justify-between md:justify-normal">
-                    {user[0].type}
-                    {user[0].type !== "None" && (
+                    {user.type ? user.type : "None"}
+                    {user.type && (
                       <button
                         className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 pt-2 pb-2.5 text-center font-medium text-primary2 hover:bg-opacity-90 px-2.5 xl:px-6"
                         onClick={() => setIsSubscriptionOpen(true)}
@@ -128,14 +129,14 @@ const UserEditForm = ({ user }: Props) => {
                   </div>
                 </div>
 
-                {user[0].type !== "None" && (
+                {user.type && (
                   <>
                     <div>
                       <div className="text-sm font-medium mb-3">
                         SubScription Start
                       </div>
                       <div className="flex items-center text-sm font-medium h-11.5">
-                        {user[0].start.toString()}
+                        {user.start?.toString()}
                       </div>
                     </div>
 
@@ -144,7 +145,7 @@ const UserEditForm = ({ user }: Props) => {
                         SubScription End
                       </div>
                       <div className="flex items-center text-sm font-medium h-11.5">
-                        {user[0].end.toString()}
+                        {user.end?.toString()}
                       </div>
                     </div>
                   </>
@@ -183,13 +184,13 @@ const UserEditForm = ({ user }: Props) => {
       </div>
       <Modal
         isOpen={isSubscriptionOpen}
-        label={SubscriptionLabel(user[0].name)}
+        label={SubscriptionLabel(user.name)}
         closeModal={() => setIsSubscriptionOpen(false)}
         onSubmit={cancelSubscription}
       />
       <Modal
         isOpen={isDeleteOpen}
-        label={UserDeleteLabel(user[0].name)}
+        label={UserDeleteLabel(user.name)}
         closeModal={() => setIsDeleteOpen(false)}
         onSubmit={deleteUser}
       />

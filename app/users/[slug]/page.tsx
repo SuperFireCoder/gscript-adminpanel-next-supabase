@@ -15,21 +15,21 @@ const UserEditPage = async ({
   // Auth user
   const supabase = createServerComponentClient({ cookies });
   const {
-    data: { user },
+    data: { user: auth_user },
   } = await supabase.auth.getUser();
-  if (!user) {
+  if (!auth_user) {
     redirect("/login");
   }
 
   // Get user data by slug
-  const { user_data, error } = await getUserData(slug, supabase);
+  const { user, error } = await getUserData({ slug, supabase });
 
   return (
     <>
       {error ? (
         <AlertDanger title={"Error"} content={error.message} />
       ) : (
-        <UserEditForm user={user_data} />
+        <UserEditForm user={user} />
       )}
     </>
   );
