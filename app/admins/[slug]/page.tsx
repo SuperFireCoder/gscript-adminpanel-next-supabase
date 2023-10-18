@@ -5,7 +5,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { getUserData } from "../../../utils/getUserData";
+import { getAdminData } from "../../../utils/getAdminData";
 
 const AdminEditPage = async ({
   params: { slug },
@@ -22,14 +22,14 @@ const AdminEditPage = async ({
   }
 
   // Get admin data by slug
-  const { user_data, error } = await getUserData(slug, supabase);
+  const { admin, error } = await getAdminData({ slug, supabase });
 
   return (
     <>
       {error ? (
         <AlertDanger title={"Error"} content={error.message} />
       ) : (
-        <AdminEditForm admin={user_data} />
+        <AdminEditForm admin={admin} />
       )}
     </>
   );

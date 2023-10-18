@@ -11,7 +11,7 @@ import AuthProvider from "../components/AuthProvider";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import { getAdminInfo } from "../utils/getAdminInfo";
+import { getAuthAdminInfo } from "../utils/getAuthAdminInfo";
 
 export default async function RootLayout({
   children,
@@ -26,7 +26,7 @@ export default async function RootLayout({
   const accessToken = session?.access_token || null;
 
   // Get admin info
-  const { data, error } = await getAdminInfo(supabase);
+  const { data, error } = await getAuthAdminInfo(supabase);
 
   return (
     <html lang="en">

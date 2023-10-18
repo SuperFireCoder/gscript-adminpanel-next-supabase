@@ -86,18 +86,20 @@ const AdminForm = ({ admins }: Props) => {
                             </td>
                             <td className="whitespace-nowrap px-5 md:px-7.5 py-8 font-medium">
                               <span className="bg-primary2 text-white text-xs py-0.5 px-2 h-5.5 leading-5 rounded-full">
-                                {admin.role}
+                                {admin.is_super ? "Super Admin" : "Admin"}
                               </span>
                             </td>
                             <td className="px-5 md:px-7.5 py-8 flex justify-end min-w-20">
-                              <Link href={`/admins/${admin.id}`}>
-                                <Image
-                                  width={18}
-                                  height={18}
-                                  src={"/images/file-pen.svg"}
-                                  alt="File Pen"
-                                />
-                              </Link>
+                              {!admin.is_super && (
+                                <Link href={`/admins/${admin.id}`}>
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/images/file-pen.svg"}
+                                    alt="File Pen"
+                                  />
+                                </Link>
+                              )}
                             </td>
                           </tr>
                         ))}
