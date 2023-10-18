@@ -11,6 +11,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { User } from "../../types/user";
+import { getUsers } from "../../utils/getUsers";
 
 const DashboardPage = async () => {
   // Auth user
@@ -24,23 +25,7 @@ const DashboardPage = async () => {
   }
 
   // Get users data
-  const { data, error } = await supabase
-    .from("users")
-    .select("id, email, created_at, subscription(name, role, type, start, end)")
-    .eq("subscription.role", "user")
-    .order("created_at", { ascending: false })
-    .limit(4);
-  const users_data =
-    data && !error
-      ? data
-          .filter((user: any) => user.subscription.length)
-          .map((user: any) => ({
-            id: user.id,
-            email: user.email,
-            created_at: user.created_at,
-            ...user.subscription[0],
-          }))
-      : [];
+  const { users, error } = await getUsers({ supabase, type: 1 });
 
   return (
     <>
@@ -211,7 +196,7 @@ const DashboardPage = async () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {users_data.map((user: User) => (
+                        {users.map((user: User) => (
                           <tr
                             key={user.id}
                             className="border-b border-gray text-sm"
@@ -223,7 +208,7 @@ const DashboardPage = async () => {
                               {user.email}
                             </td>
                             <td className="px-4 xl:px-7.5 py-8 font-medium">
-                              {user.type}
+                              {user.type ? user.type : "None"}
                             </td>
                             <td className="px-4 xl:px-7.5 py-8 font-medium">
                               {user.start?.toString()}

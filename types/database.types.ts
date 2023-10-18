@@ -46,33 +46,27 @@ export interface Database {
           id: number
           start: string
           type: string
-          user_id: string
+          user_id: number | null
         }
         Insert: {
           end: string
           id?: number
           start: string
           type: string
-          user_id: string
+          user_id?: number | null
         }
         Update: {
           end?: string
           id?: number
           start?: string
           type?: string
-          user_id?: string
+          user_id?: number | null
         }
         Relationships: [
           {
             foreignKeyName: "subscriptions_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "subscriptions_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "auth_users"
             referencedColumns: ["id"]
           }
         ]
