@@ -1,11 +1,14 @@
 import React from "react";
 
+import { ModalLabel } from "../../types/modal_label";
+
 interface Props {
   isOpen: boolean;
+  label: ModalLabel;
   closeModal: Function;
+  onSubmit: Function;
 }
-const UserModal = (props: Props) => {
-  const { isOpen, closeModal } = props;
+const Modal = ({ isOpen, label, closeModal, onSubmit }: Props) => {
   if (!isOpen) return null;
 
   return (
@@ -16,21 +19,23 @@ const UserModal = (props: Props) => {
       ></div>
       <div className="flex flex-col items-center bg-white w-11/12 md:w-142 mx-auto rounded-lg shadow-lg z-50 overflow-y-auto py-16 text-center">
         <div className="text-xl text-primary font-bold leading-6 px-17">
-          Are you sure that you’d like to cancel Elissa McKinsey’s Standard
-          subscription?
+          {label.title}
         </div>
         <div className="text-gray text-base font-medium px-31 pt-7.5 pb-13.5">
-          If you cancel a subscription, that action cannot be reversed.
+          {label.subTitle}
         </div>
         <div className="flex gap-5 px-7">
-          <button className="rounded-full border border-primary2 bg-primary2 py-3.5 px-10 text-center font-medium text-base text-white hover:bg-opacity-90">
-            Cancel subscription
+          <button
+            className="rounded-full border border-primary2 bg-primary2 py-3.5 px-10 text-center font-medium text-base text-white hover:bg-opacity-90"
+            onClick={() => onSubmit()}
+          >
+            {label.submitBtnTitle}
           </button>
           <button
             className="rounded-full border border-primary2 py-3.5 px-10 text-center font-medium text-base text-primary2 hover:bg-opacity-90"
             onClick={() => closeModal()}
           >
-            {"I've changed my mind"}
+            {label.cancelBtnTitle}
           </button>
         </div>
       </div>
@@ -38,4 +43,4 @@ const UserModal = (props: Props) => {
   );
 };
 
-export default UserModal;
+export default Modal;
