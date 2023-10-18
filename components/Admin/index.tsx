@@ -37,7 +37,7 @@ const AdminForm = ({ admins }: Props) => {
               />
             </div>
             <Link
-              href="/admin/create"
+              href="/admins/create"
               className="rounded-full border border-primary2 bg-primary2 py-2 xl:py-3.5 px-6 xl:px-10 text-center font-medium text-white hover:bg-opacity-90"
             >
               Add a New Admin
@@ -90,7 +90,7 @@ const AdminForm = ({ admins }: Props) => {
                               </span>
                             </td>
                             <td className="px-5 md:px-7.5 py-8 flex justify-end min-w-20">
-                              <Link href={`/admin/${admin.id}`}>
+                              <Link href={`/admins/${admin.id}`}>
                                 <Image
                                   width={18}
                                   height={18}

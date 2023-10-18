@@ -68,16 +68,16 @@ const Sidebar = () => {
           {/* <!-- Menu Item User Management --> */}
           <li>
             <Link
-              href="/user"
+              href="/users"
               className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium ${
-                pathname.includes("user")
+                pathname.includes("users")
                   ? "text-primary bg-white hover:bg-bodydark"
                   : "text-white bg-gray hover:bg-graydark"
               }`}
             >
               <Image
                 src={
-                  pathname.includes("user")
+                  pathname.includes("users")
                     ? "/images/user-management-dark.svg"
                     : "/images/user-management.svg"
                 }
@@ -93,16 +93,16 @@ const Sidebar = () => {
           {/* <!-- Menu Item Admin Management --> */}
           <li>
             <Link
-              href="/admin"
+              href="/admins"
               className={`group relative flex items-center text-base gap-2.5 rounded-full py-2 px-4 font-medium ${
-                pathname.includes("admin")
+                pathname.includes("admins")
                   ? "text-primary bg-white hover:bg-bodydark"
                   : "text-white bg-gray hover:bg-graydark"
               }`}
             >
               <Image
                 src={
-                  pathname.includes("admin")
+                  pathname.includes("admins")
                     ? "/images/admin-management-dark.svg"
                     : "/images/admin-management.svg"
                 }

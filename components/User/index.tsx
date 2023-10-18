@@ -110,7 +110,7 @@ const UserForm = ({ users }: Props) => {
                               {user.end?.toString()}
                             </td>
                             <td className="px-4 xl:px-7.5 py-8 min-w-20">
-                              <Link href={`/user/${user?.id}`}>
+                              <Link href={`/users/${user?.id}`}>
                                 <Image
                                   width={18}
                                   height={18}

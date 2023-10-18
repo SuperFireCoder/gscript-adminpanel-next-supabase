@@ -11,8 +11,6 @@ import AuthProvider from "../components/AuthProvider";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import { supabase as client_supabase } from "../lib/supabase";
-
 export default async function RootLayout({
   children,
 }: {
@@ -29,7 +27,7 @@ export default async function RootLayout({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const { data, error } = await client_supabase
+  const { data, error } = await supabase
     .from("users")
     .select("id, email, subscription(role)")
     .eq("id", user?.id)

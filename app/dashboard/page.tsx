@@ -10,7 +10,6 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { supabase as client_supabase } from "../../lib/supabase";
 import { User } from "../../types/user";
 
 const DashboardPage = async () => {
@@ -25,7 +24,7 @@ const DashboardPage = async () => {
   }
 
   // Get users data
-  const { data, error } = await client_supabase
+  const { data, error } = await supabase
     .from("users")
     .select("id, email, created_at, subscription(name, role, type, start, end)")
     .eq("subscription.role", "user")
@@ -234,7 +233,7 @@ const DashboardPage = async () => {
                             </td>
                             <td className="px-4 xl:px-7.5 py-8 min-w-20">
                               <div>
-                                <Link href={`/user/${user.id}`}>
+                                <Link href={`/users/${user.id}`}>
                                   <Image
                                     width={18}
                                     height={18}
@@ -254,7 +253,7 @@ const DashboardPage = async () => {
             </div>
 
             <div className="flex justify-center p-5.5">
-              <Link href={"/user"}>
+              <Link href={"/users"}>
                 <button className="rounded-full border border-primary2 py-2 px-6 text-center text-base font-medium text-primary2 hover:bg-opacity-90">
                   View All
                 </button>
