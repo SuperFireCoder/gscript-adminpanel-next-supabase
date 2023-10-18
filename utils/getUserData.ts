@@ -1,6 +1,12 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export const getUserData = async (slug: string, supabase: SupabaseClient) => {
+interface Props {
+  slug: string;
+  supabase: SupabaseClient;
+  type: number;
+}
+
+export const getUserData = async ({ slug, supabase, type }: Props) => {
   const { data, error } = await supabase
     .from("users")
     .select("id, email, created_at, subscription(name, role, type, start, end)")
