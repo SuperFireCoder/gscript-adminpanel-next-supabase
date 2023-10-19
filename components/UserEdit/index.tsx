@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import Modal from "../Modal";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { User } from "../../types/user";
 import { SubscriptionLabel, UserDeleteLabel } from "../../consts/modal_labels";
@@ -34,8 +33,6 @@ const UserEditForm = ({ user }: Props) => {
 
   const supabase = createClientComponentClient();
 
-  const { push } = useRouter();
-
   const cancelSubscription = async () => {
     const { error } = await supabase
       .from("subscriptions")
@@ -53,7 +50,7 @@ const UserEditForm = ({ user }: Props) => {
     );
 
     if (!error) {
-      push("/users");
+      window.location.href = "/users";
     }
   };
 
@@ -84,7 +81,7 @@ const UserEditForm = ({ user }: Props) => {
         { ...formData }
       );
       if (!error) {
-        push("/users");
+        window.location.href = "/users";
       }
     }
   };
@@ -145,6 +142,7 @@ const UserEditForm = ({ user }: Props) => {
                       {user.type ? user.type : "None"}
                       {user.type && (
                         <button
+                          type="button"
                           className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 pt-2 pb-2.5 text-center font-medium text-primary2 hover:bg-opacity-90 px-2.5 xl:px-6"
                           onClick={() => setIsSubscriptionOpen(true)}
                         >
@@ -185,6 +183,7 @@ const UserEditForm = ({ user }: Props) => {
               </div>
               <div className="flex flex-col gap-7.5 md:flex-row justify-between">
                 <button
+                  type="button"
                   className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
                   onClick={() => setIsDeleteOpen(true)}
                 >
@@ -198,7 +197,10 @@ const UserEditForm = ({ user }: Props) => {
                 </button>
                 <div className="flex justify-end gap-3 lg:gap-7.5">
                   <Link href={"/users"}>
-                    <button className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
+                    <button
+                      type="button"
+                      className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
+                    >
                       Cancel
                     </button>
                   </Link>

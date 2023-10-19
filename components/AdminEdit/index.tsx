@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import Modal from "../Modal";
 
@@ -33,8 +32,6 @@ const AdminEditForm = ({ admin }: Props) => {
     password: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
-
-  const { push } = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -66,7 +63,7 @@ const AdminEditForm = ({ admin }: Props) => {
     );
 
     if (!error) {
-      push("/admins");
+      window.location.href = "/admins";
     }
   };
 
@@ -78,7 +75,7 @@ const AdminEditForm = ({ admin }: Props) => {
         { ...formData }
       );
       if (!error) {
-        window.location.reload();
+        window.location.href = "/admins";
       }
     }
   };
@@ -101,7 +98,6 @@ const AdminEditForm = ({ admin }: Props) => {
                     <input
                       type="text"
                       name="email"
-                      id="email"
                       className="block w-full rounded-md border-0 px-3 py-1.5 text-primary ring-1 ring-gray ring-inset focus:ring-2 focus:ring-inset h-11.5"
                       value={formData.email}
                       onChange={handleInputChange}
@@ -119,7 +115,6 @@ const AdminEditForm = ({ admin }: Props) => {
                     <input
                       type="password"
                       name="password"
-                      id="password"
                       className="block w-full rounded-md border-0 px-3 py-1.5 text-primary ring-1 ring-gray ring-inset focus:ring-2 focus:ring-inset h-11.5"
                       value={formData.password}
                       onChange={handleInputChange}
@@ -135,8 +130,11 @@ const AdminEditForm = ({ admin }: Props) => {
 
               <div className="flex gap-5 justify-between">
                 <button
+                  type="button"
                   className="inline-flex items-center justify-center gap-2.5 rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={(e) => {
+                    setIsModalOpen(true);
+                  }}
                 >
                   <Image
                     width={18}
@@ -148,7 +146,10 @@ const AdminEditForm = ({ admin }: Props) => {
                 </button>
                 <div className="flex gap-2 justify-end lg:gap-7.5">
                   <Link href={"/admins"}>
-                    <button className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
+                    <button
+                      type="button"
+                      className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
+                    >
                       Cancel
                     </button>
                   </Link>
