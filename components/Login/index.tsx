@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { getAdminData } from "../../utils/getAdminData";
+import { getAuthAdminInfo } from "../../utils/getAuthAdminInfo";
 
 interface FormData {
   email: string;
@@ -25,6 +27,7 @@ const LoginForm: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrorMsg("");
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -56,6 +59,14 @@ const LoginForm: React.FC = () => {
       });
       if (error) {
         setErrorMsg(error.message);
+      } else {
+        const { error } = await getAuthAdminInfo(supabase);
+        if (error) {
+          const { error } = await supabase.auth.signOut();
+          if (!error) {
+            setErrorMsg("Only admin users can login to the panel!");
+          }
+        }
       }
     }
   };
