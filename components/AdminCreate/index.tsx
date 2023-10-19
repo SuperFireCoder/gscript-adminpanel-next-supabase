@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { supabase as service_supabase } from "../../lib/supabase";
 
@@ -21,8 +20,6 @@ const AdminCreateForm = () => {
     password: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
-
-  const { push } = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -58,12 +55,11 @@ const AdminCreateForm = () => {
         ...formData,
       });
       if (!error) {
-        console.log(user);
         const { error: err } = await service_supabase
           .from("admins")
           .insert({ user_id: user!.id });
         if (!err) {
-          push("/admins");
+          window.location.href = "/admins";
         }
       }
     }
@@ -122,7 +118,10 @@ const AdminCreateForm = () => {
               <div className="flex justify-end">
                 <div className="flex gap-2 lg:gap-7.5">
                   <Link href={"/admins"}>
-                    <button className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90">
+                    <button
+                      type="button"
+                      className="rounded-full border border-primary2 py-2 px-6 text-center font-medium text-primary2 hover:bg-opacity-90"
+                    >
                       Cancel
                     </button>
                   </Link>
